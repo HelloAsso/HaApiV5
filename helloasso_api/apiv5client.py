@@ -211,12 +211,12 @@ class ApiV5Client(object):
     ) -> Response:
         """Manage all api calls. It also handle re-authentication if necessary."""
         self.log.debug(f"Call : {method} : {sub_path}")
-        url, headers, data, json, params = self.prepare_request(
+        url, all_headers, data, json, params = self.prepare_request(
             sub_path, headers, data, json, params, include_auth
         )
 
         try:
-            result = self.execute_request(url, method, headers, data, json, params)
+            result = self.execute_request(url, method, all_headers, data, json, params)
             return result
         except ApiV5Unauthorized:
             self.log.warning("401 Unauthorized response to API request.")
